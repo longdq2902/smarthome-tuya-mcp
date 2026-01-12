@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuya Smart Home</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #ebedef; padding: 20px; color: #333; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; }
+        
+        .card { 
+            background: white; border-radius: 12px; padding: 20px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+            display: flex; flex-direction: column;
+        }
+        .card.missing-ip { border-left: 5px solid #ffc107; background: #fffdf9; }
+        
+        /* HEADER */
+        .header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;}
+        .name-container { display: flex; align-items: center; gap: 8px; }
+        .name { font-weight: 700; font-size: 1.1em; color: #2c3e50; }
+        .edit-name-btn { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #ccc; transition: 0.2s; padding: 0 5px;}
+        .edit-name-btn:hover { color: #f39c12; }
+        
+        .meta { font-size: 0.85em; color: #7f8c8d; margin-top: 5px; display: flex; gap: 10px; align-items: center;}
+        .tag { background: #eee; padding: 2px 6px; border-radius: 4px; font-weight: 500;}
+        .ip-btn { background: #eef2f5; border: none; color: #0056b3; cursor: pointer; padding: 2px 6px; border-radius: 4px; font-size: inherit; }
+
+        /* SWITCH CONTROLS */
+        .switch-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f9f9f9; }
+        .switch-row:last-child { border-bottom: none; }
+        .switch-label { font-size: 1em; font-weight: 600; color: #444; display: flex; align-items: center; gap: 8px;}
+        
+        /* SENSOR DATA */
+        .sensor-box { background: #f8f9fa; padding: 12px; border-radius: 8px; font-size: 0.9em; color: #555; margin-top: 15px;}
+        .sensor-row { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 6px 0; border-bottom: 1px dashed #e0e0e0; 
+        }
+        .sensor-row:last-child { border-bottom: none; }
+        .sensor-label { color: #666; display: flex; align-items: center; gap: 5px;}
+        .sensor-val { font-weight: bold; color: #2c3e50; }
+
+        /* EDIT ICON (PENCIL) */
+        .edit-btn { background: none; border: none; cursor: pointer; font-size: 1em; color: #ddd; padding: 2px; transition: 0.2s; }
+        .card:hover .edit-btn { color: #bbb; } /* Chỉ hiện mờ khi hover card */
+        .edit-btn:hover { color: #007bff !important; transform: scale(1.1); }
+
+        /* TOGGLE SWITCH */
+        .toggle { position: relative; display: inline-block; width: 48px; height: 26px; flex-shrink: 0;}
+        .toggle input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .3s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        input:checked + .slider { background-color: #2ecc71; }
+        input:checked + .slider:before { transform: translateX(22px); }
+        input:disabled + .slider { background-color: #e9ecef; cursor: not-allowed; }
+
+        .timer-badge {
+    background: #ff9800; color: white; 
+    font-size: 0.75em; padding: 2px 8px; border-radius: 10px;
+    margin-left: 10px; display: inline-flex; align-items: center;
+    }
+    .timer-btn {
+        background: none; border: 1px solid #ddd; border-radius: 4px;
+        cursor: pointer; color: #666; font-size: 0.9em; padding: 2px 6px;
+        margin-left: auto; /* Đẩy sang phải */
+    }
+    .timer-btn:hover { background: #eee; color: #333; }
+    .timer-active { background: #ffe0b2; color: #e65100; border-color: #ffcc80; }
+        </style>
+</head>
+<body>
+    <div style="max-width: 1400px; margin: 0 auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <div>
+                <h2 style="margin:0; color:#2c3e50;">🏡 Nhà Thông Minh</h2>
+                <small style="color:#7f8c8d">Tự động cập nhật trạng thái mỗi 5 giây</small>
+            </div>
+            <button onclick="loadDevices()" style="padding:10px 20px; background:#34495e; color:white; border:none; border-radius:6px; cursor:pointer;">↻ Làm mới</button>
+        </div>
+        <div id="grid" class="grid">Loading...</div>
+    </div>
+
+    <script>
+        // Hàm lấy tên hiển thị của DP (từ mapping hoặc mặc định)
+        function getDPLabel(dev, dpId) {
+            if (dev.mapping && dev.mapping[dpId]) {
+                return dev.mapping[dpId].name || dev.mapping[dpId].code || `DP ${dpId}`;
+            }
+            return `DP ${dpId}`;
+        }
+
+        async function loadDevices() {
+            const grid = document.getElementById('grid');
+            try {
+                const res = await fetch('/api/devices');
+                const data = await res.json();
+                
+                // 1. SẮP XẾP: Ưu tiên Online trước, sau đó đến Tên ABC
+                data.sort((a, b) => {
+                    if (a.online !== b.online) {
+                        return b.online - a.online; // True (1) trừ False (0) -> Online lên trước
+                    }
+                    return a.name.localeCompare(b.name);
+                });
+
+                grid.innerHTML = '';
+
+                data.forEach(dev => {
+                    // Tạo khung thẻ (Card)
+                    const card = document.createElement('div');
+                    card.className = `card ${dev.missing_ip ? 'missing-ip' : ''}`;
+                    
+                    // --- HEADER ---
+                    let html = `
+                        <div class="header">
+                            <div style="flex-grow:1">
+                                <div class="name-container">
+                                    <div class="name">${dev.name}</div>
+                                    <button class="edit-name-btn" onclick="renameDevice('${dev.id}', '${dev.name}')">✎</button>
+                                </div>
+                                <div class="meta">
+                                    <span class="tag">${dev.category.toUpperCase()}</span>
+                                    ${!dev.via ? `<button class="ip-btn" onclick="editIP('${dev.id}', '${dev.real_ip}')">${dev.ip || 'No IP'}</button>` : `<span style="color:#666">Via: ${dev.via}</span>`}
+                                </div>
+                            </div>
+                            
+                            <div title="${dev.online ? 'Online' : 'Offline'}">
+                                ${dev.online ? '<span style="color:#2ecc71; font-size:1.5em">●</span>' : '<span style="color:#e74c3c; font-size:1.5em">●</span>'}
+                            </div>
+                        </div>`;
+
+                    // --- CONTROLS (Nút bấm & Hẹn giờ từng nút) ---
+                    let hasControls = false;
+                    let controlsHtml = '<div>';
+                    
+                    // Lọc ra các DP là công tắc (Boolean) để hiển thị nút gạt
+                    let switchKeys = [];
+                    
+                    // Cách 1: Dùng Mapping nếu có
+                    if (dev.mapping) {
+                        switchKeys = Object.keys(dev.mapping).filter(k => {
+                            const id = parseInt(k);
+                            return !isNaN(id) && id < 20 && dev.mapping[k].type === 'Boolean';
+                        }).sort((a,b) => parseInt(a) - parseInt(b));
+                    }
+                    
+                    // Cách 2: Fallback nếu không có mapping (cho thiết bị đơn giản)
+                    if (switchKeys.length === 0 && (dev.type === 'switch' || dev.type === 'light')) {
+                         if(dev.dps['1'] !== undefined) switchKeys.push('1');
+                         else if(dev.dps['20'] !== undefined) switchKeys.push('20');
+                    }
+
+                    if (switchKeys.length > 0) {
+                        hasControls = true;
+                        switchKeys.forEach(dpId => {
+                            let label = getDPLabel(dev, dpId);
+                            let isOn = dev.dps[dpId] === true;
+                            
+                            // [LOGIC TIMER CHO TỪNG NÚT]
+                            let timerText = "⏱";
+                            let timerClass = "timer-btn";
+                            let timerMode = -1; // -1: Chưa có hẹn giờ (bấm vào sẽ SET)
+                            
+                            // Kiểm tra trong danh sách timers server gửi về
+                            // Key 'main' dùng cho trường hợp thiết bị đơn không phân biệt DP
+                            if (dev.timers) {
+                                if (dev.timers[dpId]) {
+                                    timerText = `⏳ ${dev.timers[dpId]}`;
+                                    timerClass += " timer-active";
+                                    timerMode = 0; // 0: Đang có hẹn giờ (bấm vào sẽ HỦY)
+                                } else if (switchKeys.length === 1 && dev.timers['main']) {
+                                    timerText = `⏳ ${dev.timers['main']}`;
+                                    timerClass += " timer-active";
+                                    timerMode = 0;
+                                }
+                            }
+
+                            controlsHtml += `
+                                <div class="switch-row">
+                                    <div class="switch-label">
+                                        ${label} 
+                                        <button class="edit-btn" onclick="renameDP('${dev.id}', '${dpId}', '${label}')">✎</button>
+                                    </div>
+                                    
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <button class="${timerClass}" onclick="setTimer('${dev.id}', '${dpId}', ${timerMode})" style="font-size:0.8em; min-width:30px;">
+                                            ${timerText}
+                                        </button>
+                                        
+                                        <label class="toggle">
+                                            <input type="checkbox" ${isOn ? 'checked' : ''} onchange="toggleDevice('${dev.id}', '${dpId}', this.checked)" ${dev.missing_ip ? 'disabled' : ''}>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>`;
+                        });
+                    }
+                    controlsHtml += '</div>';
+                    if (hasControls) html += controlsHtml;
+
+                    // --- SENSORS (Các thông số còn lại) ---
+                    let sensorHtml = '';
+                    let hasSensor = false;
+                    
+                    for (const [k, v] of Object.entries(dev.dps)) {
+                        // Bỏ qua các DP đã vẽ nút bấm ở trên
+                        if (switchKeys.includes(k)) continue;
+                        // Bỏ qua các DP rác hệ thống
+                        if (['18','19','20','21','22','23','24','25','26'].includes(k)) continue;
+
+                        hasSensor = true;
+                        let label = getDPLabel(dev, k);
+                        sensorHtml += `
+                            <div class="sensor-row">
+                                <div class="sensor-label">
+                                    <button class="edit-btn" onclick="renameDP('${dev.id}', '${k}', '${label}')">✎</button> ${label}
+                                </div>
+                                <div class="sensor-val">${v}</div>
+                            </div>`;
+                    }
+
+                    if (hasSensor) {
+                        html += `<div class="sensor-box">${sensorHtml}</div>`;
+                    } else if (!hasControls) {
+                        html += `<div style="text-align:center; color:#ccc; margin-top:20px;">Không có dữ liệu</div>`;
+                    }
+
+                    card.innerHTML = html;
+                    grid.appendChild(card);
+                });
+            } catch(e) { console.log(e); }
+        }
+
+        // --- API CALLS ---
+        async function toggleDevice(devId, dpId, newState) {
+            try { await fetch('/api/control', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ id: devId, dps_id: dpId, action: newState ? 'on' : 'off' }) }); } catch(e) {}
+        }
+
+        async function renameDevice(devId, currentName) {
+            const newName = prompt("Tên thiết bị mới:", currentName);
+            if (newName && newName.trim()) {
+                await fetch('/api/update_config', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ id: devId, device_name: newName.trim() }) });
+                loadDevices();
+            }
+        }
+        async function setTimer(devId, mode) {
+            let minutes = 0;
+            
+            // Nếu mode = 0 tức là đang có timer -> Yêu cầu hủy
+            if (mode == 0) {
+                if(!confirm("Hủy hẹn giờ hiện tại?")) return;
+                minutes = 0;
+            } else {
+                // Nếu chưa có -> Hỏi số phút
+                let input = prompt("Nhập số phút để đảo trạng thái (VD: 30):");
+                if (input === null) return; // Bấm Cancel
+                minutes = parseInt(input);
+                if (isNaN(minutes) || minutes < 0) {
+                    alert("Vui lòng nhập số phút hợp lệ!");
+                    return;
+                }
+            }
+
+            try {
+                const res = await fetch('/api/set_timer', { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({ id: devId, minutes: minutes }) 
+                });
+                const data = await res.json();
+                if(data.success) {
+                    loadDevices(); // Load lại ngay để thấy thay đổi
+                } else {
+                    alert("Lỗi: " + (data.message || "Không xác định"));
+                }
+            } catch(e) { console.log(e); }
+        }
+
+        async function renameDP(devId, dpId, currentName) {
+            const newName = prompt(`Đặt tên mới cho thông số (DP ${dpId}):`, currentName);
+            if (newName && newName.trim()) {
+                await fetch('/api/update_config', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ id: devId, dp_id: dpId, name: newName.trim() }) });
+                loadDevices();
+            }
+        }
+
+        async function editIP(id, currentVal) {
+            const newVal = prompt("IP LAN mới:", currentVal);
+            if (newVal) {
+                await fetch('/api/update_config', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ id: id, ip: newVal.trim() }) });
+                loadDevices();
+            }
+        }
+
+        loadDevices();
+        setInterval(loadDevices, 5000); // Tự động cập nhật giao diện mỗi 5s
+    </script>
+</body>
+</html>

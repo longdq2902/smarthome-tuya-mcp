@@ -1,0 +1,1374 @@
+[
+    {
+        "name": "Đèn phòng Bông",
+        "id": "80300847ecfabc57b4cc",
+        "key": "C6B;m(7jDq{4+Nb4",
+        "mac": "ec:fa:bc:57:b4:cc",
+        "uuid": "80300847ecfabc57b4cc",
+        "sn": "TZAJ18LHE006BF",
+        "category": "cz",
+        "product_name": "One gang switch",
+        "product_id": "kZbvCqK7zvFiCGl1",
+        "biz_type": 18,
+        "model": "WF-WS01",
+        "sub": false,
+        "icon": "https://images.tuyaus.com/smart/icon/1548404412imrhib2pz8g_0.png",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {}
+            }
+        },
+        "ip": "192.168.1.3",
+        "version": "3.3"
+    },
+    {
+        "name": "Smart Weather Station",
+        "id": "eb9def28aae30053d7veb3",
+        "key": "=L|OT|FJL2X:apWK",
+        "mac": "a8:80:55:61:4b:6e",
+        "uuid": "821f858f34e41d42",
+        "sn": "100102240002D4",
+        "category": "qxj",
+        "product_name": "Smart Weather Station",
+        "product_id": "fpgistthfiweyaqr",
+        "biz_type": 18,
+        "model": "",
+        "sub": false,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1524204424146aiEgV/fbf2f509173bf22d5beb86fbb5406b08.png",
+        "mapping": {},
+        "ip": "192.168.1.6",
+        "version": "3.3"
+    },
+    {
+        "name": "TV",
+        "id": "eb950390e5d7bd0ab2pich",
+        "key": "QTZ@2u)$_`.mn8Ej",
+        "mac": "",
+        "category": "infrared_tv",
+        "product_name": "TV",
+        "product_id": "lplun31mo1xaonwz",
+        "biz_type": 18,
+        "model": "",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/001453365846342fhj9e/2234434f86d00a26359b2a9e5e967640.png",
+        "uuid": "eb950390e5d7bd0ab2pich",
+        "node_id": "a84804131fd66851",
+        "mapping": {
+            "-/--": {
+                "code": "-/--",
+                "type": "STRING",
+                "values": "-/--"
+            },
+            "0": {
+                "code": "0",
+                "type": "STRING",
+                "values": "0"
+            },
+            "1": {
+                "code": "1",
+                "type": "STRING",
+                "values": "1"
+            },
+            "2": {
+                "code": "2",
+                "type": "STRING",
+                "values": "2"
+            },
+            "3": {
+                "code": "3",
+                "type": "STRING",
+                "values": "3"
+            },
+            "4": {
+                "code": "4",
+                "type": "STRING",
+                "values": "4"
+            },
+            "5": {
+                "code": "5",
+                "type": "STRING",
+                "values": "5"
+            },
+            "6": {
+                "code": "6",
+                "type": "STRING",
+                "values": "6"
+            },
+            "7": {
+                "code": "7",
+                "type": "STRING",
+                "values": "7"
+            },
+            "8": {
+                "code": "8",
+                "type": "STRING",
+                "values": "8"
+            },
+            "9": {
+                "code": "9",
+                "type": "STRING",
+                "values": "9"
+            },
+            "Back": {
+                "code": "Back",
+                "type": "STRING",
+                "values": "Back"
+            },
+            "C": {
+                "code": "C",
+                "type": "ENUM",
+                "values": {
+                    "min": 1,
+                    "max": 999,
+                    "scale": 0,
+                    "step": 1,
+                    "type": "Integer"
+                }
+            },
+            "Channel+": {
+                "code": "Channel+",
+                "type": "STRING",
+                "values": "Channel+"
+            },
+            "Channel-": {
+                "code": "Channel-",
+                "type": "STRING",
+                "values": "Channel-"
+            },
+            "Down": {
+                "code": "Down",
+                "type": "STRING",
+                "values": "Down"
+            },
+            "Home": {
+                "code": "Home",
+                "type": "STRING",
+                "values": "Home"
+            },
+            "Left": {
+                "code": "Left",
+                "type": "STRING",
+                "values": "Left"
+            },
+            "Menu": {
+                "code": "Menu",
+                "type": "STRING",
+                "values": "Menu"
+            },
+            "OK": {
+                "code": "OK",
+                "type": "STRING",
+                "values": "OK"
+            },
+            "Power": {
+                "code": "Power",
+                "type": "STRING",
+                "values": "Power"
+            },
+            "Right": {
+                "code": "Right",
+                "type": "STRING",
+                "values": "Right"
+            },
+            "Up": {
+                "code": "Up",
+                "type": "STRING",
+                "values": "Up"
+            },
+            "Volume+": {
+                "code": "Volume+",
+                "type": "STRING",
+                "values": "Volume+"
+            },
+            "Volume-": {
+                "code": "Volume-",
+                "type": "STRING",
+                "values": "Volume-"
+            }
+        },
+        "parent": "eb381c5ea4bb6f8f93koek",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Air",
+        "id": "eb1f82cd6935a87e40gopp",
+        "key": "QTZ@2u)$_`.mn8Ej",
+        "mac": "",
+        "category": "infrared_ac",
+        "product_name": "Air Conditioning",
+        "product_id": "qzktzhehinzsz2je",
+        "biz_type": 18,
+        "model": "",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/001453365846342fhj9e/11c62df7bd89c10f43d3e5ee8d13b4f4.png",
+        "uuid": "eb1f82cd6935a87e40gopp",
+        "node_id": "95486df982044b98",
+        "mapping": {
+            "wind": {
+                "code": "wind",
+                "type": "ENUM",
+                "values": {
+                    "min": 0,
+                    "max": 3,
+                    "scale": 0,
+                    "step": 1,
+                    "type": "Integer"
+                }
+            },
+            "mode": {
+                "code": "mode",
+                "type": "ENUM",
+                "values": {
+                    "min": 0,
+                    "max": 4,
+                    "scale": 0,
+                    "step": 1,
+                    "type": "Integer"
+                }
+            },
+            "power": {
+                "code": "power",
+                "type": "BOOLEAN",
+                "values": {}
+            },
+            "temp": {
+                "code": "temp",
+                "type": "ENUM",
+                "values": {
+                    "min": 16,
+                    "max": 30,
+                    "scale": 0,
+                    "step": 1,
+                    "type": "Integer"
+                }
+            },
+            "F": {
+                "code": "F",
+                "type": "ENUM",
+                "values": {
+                    "min": 0,
+                    "max": 3,
+                    "scale": 0,
+                    "step": 1,
+                    "type": "Integer"
+                }
+            },
+            "M": {
+                "code": "M",
+                "type": "ENUM",
+                "values": {
+                    "min": 0,
+                    "max": 4,
+                    "scale": 0,
+                    "step": 1,
+                    "type": "Integer"
+                }
+            },
+            "PowerOff": {
+                "code": "PowerOff",
+                "type": "STRING",
+                "values": "PowerOff"
+            },
+            "PowerOn": {
+                "code": "PowerOn",
+                "type": "STRING",
+                "values": "PowerOn"
+            },
+            "T": {
+                "code": "T",
+                "type": "ENUM",
+                "values": {
+                    "min": 16,
+                    "max": 30,
+                    "scale": 0,
+                    "step": 1,
+                    "type": "Integer"
+                }
+            }
+        },
+        "parent": "eb381c5ea4bb6f8f93koek",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Quạt phòng master",
+        "id": "eb1a98458864a278b1fvxy",
+        "key": "QTZ@2u)$_`.mn8Ej",
+        "mac": "",
+        "category": "infrared_fan",
+        "product_name": "Fan",
+        "product_id": "afn1fbbvbbnalqba",
+        "biz_type": 18,
+        "model": "",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/001453365846342fhj9e/262a00af5417b97fabe5190848fbd3d2.png",
+        "uuid": "eb1a98458864a278b1fvxy",
+        "node_id": "8d681a11debff32f",
+        "mapping": {
+            "NegativeIon": {
+                "code": "NegativeIon",
+                "type": "STRING",
+                "values": "NegativeIon"
+            },
+            "PowerOff": {
+                "code": "PowerOff",
+                "type": "STRING",
+                "values": "PowerOff"
+            },
+            "PowerOn": {
+                "code": "PowerOn",
+                "type": "STRING",
+                "values": "PowerOn"
+            },
+            "Speed": {
+                "code": "Speed",
+                "type": "STRING",
+                "values": "Speed"
+            },
+            "Swing": {
+                "code": "Swing",
+                "type": "STRING",
+                "values": "Swing"
+            },
+            "Timing": {
+                "code": "Timing",
+                "type": "STRING",
+                "values": "Timing"
+            }
+        },
+        "parent": "eb381c5ea4bb6f8f93koek",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Điều khiển phòng master",
+        "id": "eb381c5ea4bb6f8f93koek",
+        "key": "QTZ@2u)$_`.mn8Ej",
+        "mac": "50:8b:b9:27:09:92",
+        "uuid": "2b36164282afa2ab",
+        "category": "wnykq",
+        "product_name": "Smart IR",
+        "product_id": "rqhxdyusjrwxyff6",
+        "biz_type": 18,
+        "model": "IR-CBU-1",
+        "sub": false,
+        "icon": "https://images.tuyaus.com/smart/icon/bay1647703186347M8vb/e1dc9ee0d62389b7d4b8c71d54a9ec63.png",
+        "mapping": {},
+        "ip": "192.168.1.22",
+        "version": "3.3"
+    },
+    {
+        "name": "AQI",
+        "id": "eb23fd791bdf59da88jc62",
+        "key": "r*2wb'h!qGtGGCiH",
+        "mac": "38:2c:e5:2d:2c:18",
+        "uuid": "0e4fb426dfa1fb13",
+        "sn": "10016003900821",
+        "category": "hjjcy",
+        "product_name": "9in1/12in1/14in1",
+        "product_id": "jqwywcbqaa0xucg7",
+        "biz_type": 18,
+        "model": "9in1,12in1,14in1",
+        "sub": false,
+        "icon": "https://images.tuyaus.com/smart/icon/default_icon/bay1646729601679gzLb/ebabec93b2839482f02ad8a457ac0007.jpg",
+        "mapping": {
+            "1": {
+                "code": "air_quality_index",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "level_1",
+                        "level_2",
+                        "level_3",
+                        "level_4",
+                        "level_5",
+                        "level_6"
+                    ]
+                }
+            },
+            "2": {
+                "code": "temp_current",
+                "type": "Integer",
+                "values": {
+                    "unit": "°C",
+                    "min": -400,
+                    "max": 2000,
+                    "scale": 1,
+                    "step": 1
+                }
+            },
+            "3": {
+                "code": "humidity_value",
+                "type": "Integer",
+                "values": {
+                    "unit": "%",
+                    "min": 0,
+                    "max": 100,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "4": {
+                "code": "co2_value",
+                "type": "Integer",
+                "values": {
+                    "unit": "PPM",
+                    "min": 0,
+                    "max": 5000,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "5": {
+                "code": "ch2o_value",
+                "type": "Integer",
+                "values": {
+                    "unit": "mg/m3",
+                    "min": 0,
+                    "max": 2000,
+                    "scale": 3,
+                    "step": 1
+                }
+            },
+            "6": {
+                "code": "voc_value",
+                "type": "Integer",
+                "values": {
+                    "unit": "mg/m3",
+                    "min": 0,
+                    "max": 9999,
+                    "scale": 3,
+                    "step": 1
+                }
+            },
+            "7": {
+                "code": "pm25_value",
+                "type": "Integer",
+                "values": {
+                    "unit": "ug/m3",
+                    "min": 0,
+                    "max": 999,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "9": {
+                "code": "pm10",
+                "type": "Integer",
+                "values": {
+                    "unit": "ug/m3",
+                    "min": 0,
+                    "max": 999,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "22": {
+                "code": "battery_percentage",
+                "type": "Integer",
+                "values": {
+                    "unit": "%",
+                    "min": 0,
+                    "max": 100,
+                    "scale": 0,
+                    "step": 1
+                }
+            }
+        },
+        "ip": "192.168.1.2",
+        "version": "3.4"
+    },
+    {
+        "name": "PIR",
+        "id": "eb27106ba3d87656bepzdm",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "ec:1b:bd:ff:fe:c8:fc:45",
+        "uuid": "ec1bbdfffec8fc45",
+        "sn": "HXBG23CRE003BD",
+        "category": "pir",
+        "product_name": "PIR",
+        "product_id": "b5g40alm",
+        "biz_type": 18,
+        "model": "",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1534490862266NApJD/1559813545dfe0ab8a73e.png",
+        "node_id": "ec1bbdfffec8fc45",
+        "mapping": {
+            "103": {
+                "code": "battery_percentage",
+                "type": "Integer",
+                "values": {
+                    "unit": "",
+                    "min": 0,
+                    "max": 100,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "101": {
+                "code": "pir",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "pir",
+                        "none"
+                    ]
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Đèn phòng Bon",
+        "id": "eb64055f0d327ada3ekq8l",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "ec:1b:bd:ff:fe:c3:cd:f6",
+        "uuid": "ec1bbdfffec3cdf6",
+        "sn": "VZAL22AHU00008",
+        "category": "kg",
+        "product_name": "Smart Switch Pro_Zigbee 1 gang",
+        "product_id": "damhzhmn",
+        "biz_type": 18,
+        "model": "TYCMA-Z1",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/solution/43001/b8bb0466b861046d_cover.png",
+        "node_id": "ec1bbdfffec3cdf6",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {}
+            },
+            "7": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Đèn master mapping",
+        "id": "eb2ff946a0348a234f06pa",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "84:fd:27:ff:fe:60:e3:31",
+        "uuid": "84fd27fffe60e331",
+        "sn": "100027772000E2",
+        "category": "kg",
+        "product_name": "DM-ZB3SW",
+        "product_id": "anwoqhkd",
+        "biz_type": 18,
+        "model": "GSEZLN3",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1559361599226d5lhc/c7b3d551329f1d6ef809a357886ea2f8.png",
+        "node_id": "84fd27fffe60e331",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {}
+            },
+            "2": {
+                "code": "switch_2",
+                "type": "Boolean",
+                "values": {}
+            },
+            "3": {
+                "code": "switch_3",
+                "type": "Boolean",
+                "values": {}
+            },
+            "7": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "8": {
+                "code": "countdown_2",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "9": {
+                "code": "countdown_3",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Đèn phòng ngủ chính",
+        "id": "eb7663404bbdc96245yjqz",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "a4:c1:38:f7:71:58:fd:09",
+        "uuid": "a4c138f77158fd09",
+        "category": "kg",
+        "product_name": "三路开关_Zigbee",
+        "product_id": "hj6tlayw",
+        "biz_type": 18,
+        "model": "ZK3-03",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1506265639773MvqMD/d1553fff8dc1eac9cdc3dca58a9168cd.png",
+        "node_id": "a4c138f77158fd09",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn hắt trần phòng ngủ chính"
+            },
+            "2": {
+                "code": "switch_2",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn rọi phòng ngủ chính"
+            },
+            "3": {
+                "code": "switch_3",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn phòng ngủ chính"
+            },
+            "7": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "8": {
+                "code": "countdown_2",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "9": {
+                "code": "countdown_3",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "14": {
+                "code": "relay_status",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "16": {
+                "code": "switch_backlight",
+                "type": "Boolean",
+                "values": {}
+            },
+            "19": {
+                "code": "switch_inching",
+                "type": "String",
+                "values": "{}"
+            },
+            "29": {
+                "code": "relay_status_1",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "30": {
+                "code": "relay_status_2",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "31": {
+                "code": "relay_status_3",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Đèn phòng khách",
+        "id": "ebf330d216fab7ad5cleau",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "a4:c1:38:08:67:a7:3b:62",
+        "uuid": "a4c1380867a73b62",
+        "category": "kg",
+        "product_name": "四路开关_Zigbee",
+        "product_id": "mk3xlnvq",
+        "biz_type": 18,
+        "model": "ZK3-04",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1506265639773MvqMD/b017802c1a121e35e534394ad6ec6009.png",
+        "node_id": "a4c1380867a73b62",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn chính phòng khách"
+            },
+            "2": {
+                "code": "switch_2",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn hắt trần phòng khách"
+            },
+            "3": {
+                "code": "switch_3",
+                "type": "Boolean",
+                "values": {},
+                "name": "Quạt trần phòng khách"
+            },
+            "4": {
+                "code": "switch_4",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn rọi phòng khách"
+            },
+            "7": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "8": {
+                "code": "countdown_2",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "9": {
+                "code": "countdown_3",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "10": {
+                "code": "countdown_4",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "14": {
+                "code": "relay_status",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "16": {
+                "code": "switch_backlight",
+                "type": "Boolean",
+                "values": {}
+            },
+            "19": {
+                "code": "switch_inching",
+                "type": "String",
+                "values": "{}"
+            },
+            "29": {
+                "code": "relay_status_1",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "30": {
+                "code": "relay_status_2",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "31": {
+                "code": "relay_status_3",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "32": {
+                "code": "relay_status_4",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Nhà vệ sinh chính",
+        "id": "ebe13e88e425644a5aum0o",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "ec:1b:bd:ff:fe:c5:c8:8e",
+        "uuid": "ec1bbdfffec5c88e",
+        "sn": "DLAL22WDC00030",
+        "category": "kg",
+        "product_name": "Smart Switch Pro_Zigbee 3 gang",
+        "product_id": "ind6ieen",
+        "biz_type": 18,
+        "model": "TYCMA-Z3",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/program_category_icon/kg.png",
+        "node_id": "ec1bbdfffec5c88e",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn nhà vệ sinh"
+            },
+            "2": {
+                "code": "switch_2",
+                "type": "Boolean",
+                "values": {},
+                "name": "Hút mùi nhà vệ sinh"
+            },
+            "3": {
+                "code": "switch_3",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn gương nhà vệ sinh"
+            },
+            "7": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "8": {
+                "code": "countdown_2",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "9": {
+                "code": "countdown_3",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Nhà vệ sinh phụ",
+        "id": "eb5fad66c5e100fed9aqi9",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "a4:c1:38:f0:a3:42:1e:a6",
+        "uuid": "a4c138f0a3421ea6",
+        "category": "kg",
+        "product_name": "三路开关_Zigbee",
+        "product_id": "hj6tlayw",
+        "biz_type": 18,
+        "model": "ZK3-03",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1506265639773MvqMD/d1553fff8dc1eac9cdc3dca58a9168cd.png",
+        "node_id": "a4c138f0a3421ea6",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn nhà vệ sinh phụ"
+            },
+            "2": {
+                "code": "switch_2",
+                "type": "Boolean",
+                "values": {},
+                "name": "Hút mùi nhà vệ sinh phụ"
+            },
+            "3": {
+                "code": "switch_3",
+                "type": "Boolean",
+                "values": {},
+                "name": "Đèn gương nhà vệ sinh phụ"
+            },
+            "7": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "8": {
+                "code": "countdown_2",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "9": {
+                "code": "countdown_3",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "14": {
+                "code": "relay_status",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "16": {
+                "code": "switch_backlight",
+                "type": "Boolean",
+                "values": {}
+            },
+            "19": {
+                "code": "switch_inching",
+                "type": "String",
+                "values": "{}"
+            },
+            "29": {
+                "code": "relay_status_1",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "30": {
+                "code": "relay_status_2",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "31": {
+                "code": "relay_status_3",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Đèn bếp",
+        "id": "eb56fe064d7586c4e2darc",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "ec:1b:bd:ff:fe:c3:ce:02",
+        "uuid": "ec1bbdfffec3ce02",
+        "sn": "VZAL22AHU0004C",
+        "category": "kg",
+        "product_name": "Smart Switch Pro_Zigbee 1 gang",
+        "product_id": "damhzhmn",
+        "biz_type": 18,
+        "model": "TYCMA-Z1",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/solution/43001/b8bb0466b861046d_cover.png",
+        "node_id": "ec1bbdfffec3ce02",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {}
+            },
+            "7": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Đèn ban công",
+        "id": "ebc31dfdfcf1a421b5zcw3",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "a4:c1:38:cd:f0:98:e3:34",
+        "uuid": "a4c138cdf098e334",
+        "category": "kg",
+        "product_name": "一路开关_Zigbee",
+        "product_id": "uyaol0rv",
+        "biz_type": 18,
+        "model": "ZK3-01",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1506265639773MvqMD/b4995d37bb19da74e4fac6f44c174c00.png",
+        "node_id": "a4c138cdf098e334",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {}
+            },
+            "7": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 43200,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "14": {
+                "code": "relay_status",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            },
+            "16": {
+                "code": "switch_backlight",
+                "type": "Boolean",
+                "values": {}
+            },
+            "19": {
+                "code": "switch_inching",
+                "type": "String",
+                "values": "{}"
+            },
+            "29": {
+                "code": "relay_status_1",
+                "type": "Enum",
+                "values": {
+                    "range": [
+                        "power_off",
+                        "power_on",
+                        "last"
+                    ]
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Gateway",
+        "id": "eb1bd4d811e6a7b7c5mqci",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "d8:1f:12:3c:16:47",
+        "uuid": "38a54369c6da3d54",
+        "sn": "KXHDA13BD002C5",
+        "category": "wg2",
+        "product_name": "",
+        "product_id": "0jdzbgoxgfe5bjd9",
+        "biz_type": 18,
+        "model": "DMD2CC",
+        "sub": false,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1559361599226d5lhc/6a8aedf352732eb5d227cbfdd1528a64.jpg",
+        "mapping": {},
+        "ip": "192.168.1.15",
+        "version": "3.5"
+    },
+    {
+        "name": "Đèn Logia",
+        "id": "803008475002914acbbb",
+        "key": "(M#oC2M^0-e4g3#a",
+        "mac": "50:02:91:4a:cb:bb",
+        "uuid": "803008475002914acbbb",
+        "sn": "TZAJ18LHE00502",
+        "category": "cz",
+        "product_name": "One gang switch",
+        "product_id": "kZbvCqK7zvFiCGl1",
+        "biz_type": 18,
+        "model": "WF-WS01",
+        "sub": false,
+        "icon": "https://images.tuyaus.com/smart/icon/1548404412imrhib2pz8g_0.png",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {}
+            }
+        },
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Đèn phòng ăn",
+        "id": "50501333cc50e3e6ee69",
+        "key": "9u}0b/#OLh~@fGBQ",
+        "mac": "cc:50:e3:e6:ee:69",
+        "uuid": "50501333cc50e3e6ee69",
+        "sn": "AZAL13QCW001FC",
+        "category": "kg",
+        "product_name": "4-Gang Switch_WiFi",
+        "product_id": "c73jnsmi9avwvbo0",
+        "biz_type": 18,
+        "model": "WIFI-US-SK3-04",
+        "sub": false,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1506265639773MvqMD/b44306049766c8e7c0476a7eadd862b6.jpg",
+        "mapping": {
+            "1": {
+                "code": "switch_1",
+                "type": "Boolean",
+                "values": {}
+            },
+            "2": {
+                "code": "switch_2",
+                "type": "Boolean",
+                "values": {}
+            },
+            "3": {
+                "code": "switch_3",
+                "type": "Boolean",
+                "values": {}
+            },
+            "4": {
+                "code": "switch_4",
+                "type": "Boolean",
+                "values": {}
+            },
+            "9": {
+                "code": "countdown_1",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 86400,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "10": {
+                "code": "countdown_2",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 86400,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "11": {
+                "code": "countdown_3",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 86400,
+                    "scale": 0,
+                    "step": 1
+                }
+            },
+            "12": {
+                "code": "countdown_4",
+                "type": "Integer",
+                "values": {
+                    "unit": "s",
+                    "min": 0,
+                    "max": 86400,
+                    "scale": 0,
+                    "step": 1
+                }
+            }
+        },
+        "ip": "",
+        "version": ""
+    },
+    {
+        "name": "Door Sensor",
+        "id": "ebe4b5d63d0e8ac064dthi",
+        "key": "4.|9.bN+po@lbpE2",
+        "mac": "5c:02:72:ff:fe:8f:75:ec",
+        "uuid": "5c0272fffe8f75ec",
+        "sn": "10000603200573",
+        "category": "mcs",
+        "product_name": "Door Sensor",
+        "product_id": "f1hmoyj4",
+        "biz_type": 18,
+        "model": "ZXZ5DS-02",
+        "sub": true,
+        "icon": "https://images.tuyaus.com/smart/icon/ay1534490862266NApJD/12210fb164308bd08080a26338711fb2.png",
+        "node_id": "5c0272fffe8f75ec",
+        "mapping": {
+            "1": {
+                "code": "doorcontact_state",
+                "type": "Boolean",
+                "values": {}
+            },
+            "2": {
+                "code": "battery_percentage",
+                "type": "Integer",
+                "values": {
+                    "unit": "%",
+                    "min": 0,
+                    "max": 100,
+                    "scale": 0,
+                    "step": 1
+                }
+            }
+        },
+        "parent": "eb1bd4d811e6a7b7c5mqci",
+        "ip": "",
+        "version": ""
+    }
+]

@@ -1,0 +1,858 @@
+{
+    "result": [
+        {
+            "active_time": 1766230088,
+            "biz_type": 18,
+            "category": "cz",
+            "create_time": 1584030856,
+            "icon": "smart/icon/1548404412imrhib2pz8g_0.png",
+            "id": "80300847ecfabc57b4cc",
+            "ip": "14.162.176.226",
+            "lat": "21.05",
+            "local_key": "C6B;m(7jDq{4+Nb4",
+            "lon": "105.78",
+            "model": "WF-WS01",
+            "name": "\u0110\u00e8n ph\u00f2ng B\u00f4ng",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "kZbvCqK7zvFiCGl1",
+            "product_name": "One gang switch",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": true
+                }
+            ],
+            "sub": false,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766230116,
+            "uuid": "80300847ecfabc57b4cc",
+            "mapping": {
+                "1": {
+                    "code": "switch_1",
+                    "type": "Boolean",
+                    "values": {}
+                }
+            }
+        },
+        {
+            "active_time": 1700283083,
+            "biz_type": 18,
+            "category": "qxj",
+            "create_time": 1700043853,
+            "icon": "smart/icon/ay1524204424146aiEgV/fbf2f509173bf22d5beb86fbb5406b08.png",
+            "id": "eb9def28aae30053d7veb3",
+            "ip": "113.190.139.93",
+            "lat": "21.05",
+            "local_key": "=L|OT|FJL2X:apWK",
+            "lon": "105.78",
+            "model": "",
+            "name": "Smart Weather Station",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "fpgistthfiweyaqr",
+            "product_name": "Smart Weather Station",
+            "sub": false,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766229918,
+            "uuid": "821f858f34e41d42"
+        },
+        {
+            "active_time": 1756211132,
+            "biz_type": 18,
+            "category": "infrared_tv",
+            "create_time": 1693041669,
+            "icon": "smart/icon/001453365846342fhj9e/2234434f86d00a26359b2a9e5e967640.png",
+            "id": "eb950390e5d7bd0ab2pich",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "QTZ@2u)$_`.mn8Ej",
+            "lon": "105.78",
+            "model": "",
+            "name": "TV",
+            "node_id": "a84804131fd66851",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "lplun31mo1xaonwz",
+            "product_name": "TV",
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766227842,
+            "uuid": "eb950390e5d7bd0ab2pich"
+        },
+        {
+            "active_time": 1690817962,
+            "biz_type": 18,
+            "category": "infrared_ac",
+            "create_time": 1690817962,
+            "icon": "smart/icon/001453365846342fhj9e/11c62df7bd89c10f43d3e5ee8d13b4f4.png",
+            "id": "eb1f82cd6935a87e40gopp",
+            "ip": "",
+            "lat": "21.0500",
+            "local_key": "QTZ@2u)$_`.mn8Ej",
+            "lon": "105.7800",
+            "model": "",
+            "name": "Air",
+            "node_id": "95486df982044b98",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "qzktzhehinzsz2je",
+            "product_name": "Air Conditioning",
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766227842,
+            "uuid": "eb1f82cd6935a87e40gopp"
+        },
+        {
+            "active_time": 1690817703,
+            "biz_type": 18,
+            "category": "infrared_fan",
+            "create_time": 1690817703,
+            "icon": "smart/icon/001453365846342fhj9e/262a00af5417b97fabe5190848fbd3d2.png",
+            "id": "eb1a98458864a278b1fvxy",
+            "ip": "",
+            "lat": "21.0500",
+            "local_key": "QTZ@2u)$_`.mn8Ej",
+            "lon": "105.7800",
+            "model": "",
+            "name": "Qu\u1ea1t ph\u00f2ng master",
+            "node_id": "8d681a11debff32f",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "afn1fbbvbbnalqba",
+            "product_name": "Fan",
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766227842,
+            "uuid": "eb1a98458864a278b1fvxy"
+        },
+        {
+            "active_time": 1690816724,
+            "biz_type": 18,
+            "category": "wnykq",
+            "create_time": 1690816724,
+            "icon": "smart/icon/bay1647703186347M8vb/e1dc9ee0d62389b7d4b8c71d54a9ec63.png",
+            "id": "eb381c5ea4bb6f8f93koek",
+            "ip": "113.190.193.141",
+            "lat": "21.05",
+            "local_key": "QTZ@2u)$_`.mn8Ej",
+            "lon": "105.78",
+            "model": "IR-CBU-1",
+            "name": "\u0110i\u1ec1u khi\u1ec3n ph\u00f2ng master",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "rqhxdyusjrwxyff6",
+            "product_name": "Smart IR",
+            "sub": false,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766227841,
+            "uuid": "2b36164282afa2ab"
+        },
+        {
+            "active_time": 1764861669,
+            "biz_type": 18,
+            "category": "hjjcy",
+            "create_time": 1726114411,
+            "icon": "smart/icon/default_icon/bay1646729601679gzLb/ebabec93b2839482f02ad8a457ac0007.jpg",
+            "id": "eb23fd791bdf59da88jc62",
+            "ip": "113.190.195.51",
+            "lat": "21.05",
+            "local_key": "r*2wb'h!qGtGGCiH",
+            "lon": "105.78",
+            "model": "9in1,12in1,14in1",
+            "name": "AQI",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "jqwywcbqaa0xucg7",
+            "product_name": "9in1/12in1/14in1",
+            "status": [
+                {
+                    "code": "air_quality_index",
+                    "value": "level_2"
+                },
+                {
+                    "code": "temp_current",
+                    "value": 306
+                },
+                {
+                    "code": "humidity_value",
+                    "value": 60
+                },
+                {
+                    "code": "co2_value",
+                    "value": 934
+                },
+                {
+                    "code": "ch2o_value",
+                    "value": 4
+                },
+                {
+                    "code": "voc_value",
+                    "value": 17
+                },
+                {
+                    "code": "pm25_value",
+                    "value": 65
+                },
+                {
+                    "code": "pm10",
+                    "value": 85
+                },
+                {
+                    "code": "battery_percentage",
+                    "value": 60
+                }
+            ],
+            "sub": false,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766227786,
+            "uuid": "0e4fb426dfa1fb13"
+        },
+        {
+            "active_time": 1760025542,
+            "biz_type": 18,
+            "category": "pir",
+            "create_time": 1760025542,
+            "icon": "smart/icon/ay1534490862266NApJD/1559813545dfe0ab8a73e.png",
+            "id": "eb27106ba3d87656bepzdm",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "",
+            "name": "PIR",
+            "node_id": "ec1bbdfffec8fc45",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "b5g40alm",
+            "product_name": "PIR",
+            "status": [
+                {
+                    "code": "pir",
+                    "value": "pir"
+                },
+                {
+                    "code": "battery_percentage",
+                    "value": 94
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "ec1bbdfffec8fc45"
+        },
+        {
+            "active_time": 1759663736,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1759406933,
+            "icon": "smart/solution/43001/b8bb0466b861046d_cover.png",
+            "id": "eb64055f0d327ada3ekq8l",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "TYCMA-Z1",
+            "name": "\u0110\u00e8n ph\u00f2ng Bon",
+            "node_id": "ec1bbdfffec3cdf6",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "damhzhmn",
+            "product_name": "Smart Switch Pro_Zigbee 1 gang",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "ec1bbdfffec3cdf6"
+        },
+        {
+            "active_time": 1759509567,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1759509567,
+            "icon": "smart/icon/ay1559361599226d5lhc/c7b3d551329f1d6ef809a357886ea2f8.png",
+            "id": "eb2ff946a0348a234f06pa",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "GSEZLN3",
+            "name": "\u0110\u00e8n master mapping",
+            "node_id": "84fd27fffe60e331",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "anwoqhkd",
+            "product_name": "DM-ZB3SW",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                },
+                {
+                    "code": "switch_2",
+                    "value": false
+                },
+                {
+                    "code": "switch_3",
+                    "value": false
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_2",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_3",
+                    "value": 0
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "84fd27fffe60e331"
+        },
+        {
+            "active_time": 1759406966,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1759406966,
+            "icon": "smart/icon/ay1506265639773MvqMD/d1553fff8dc1eac9cdc3dca58a9168cd.png",
+            "id": "eb7663404bbdc96245yjqz",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "ZK3-03",
+            "name": "\u0110\u00e8n ph\u00f2ng ng\u1ee7 ch\u00ednh",
+            "node_id": "a4c138f77158fd09",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "hj6tlayw",
+            "product_name": "\u4e09\u8def\u5f00\u5173_Zigbee",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                },
+                {
+                    "code": "switch_2",
+                    "value": false
+                },
+                {
+                    "code": "switch_3",
+                    "value": true
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_2",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_3",
+                    "value": 0
+                },
+                {
+                    "code": "relay_status",
+                    "value": "last"
+                },
+                {
+                    "code": "switch_backlight",
+                    "value": true
+                },
+                {
+                    "code": "switch_inching",
+                    "value": "AAAAAgAABAAA"
+                },
+                {
+                    "code": "relay_status_1",
+                    "value": "last"
+                },
+                {
+                    "code": "relay_status_2",
+                    "value": "last"
+                },
+                {
+                    "code": "relay_status_3",
+                    "value": "last"
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "a4c138f77158fd09"
+        },
+        {
+            "active_time": 1759406957,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1759406957,
+            "icon": "smart/icon/ay1506265639773MvqMD/b017802c1a121e35e534394ad6ec6009.png",
+            "id": "ebf330d216fab7ad5cleau",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "ZK3-04",
+            "name": "\u0110\u00e8n ph\u00f2ng kh\u00e1ch",
+            "node_id": "a4c1380867a73b62",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "mk3xlnvq",
+            "product_name": "\u56db\u8def\u5f00\u5173_Zigbee",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": true
+                },
+                {
+                    "code": "switch_2",
+                    "value": true
+                },
+                {
+                    "code": "switch_3",
+                    "value": false
+                },
+                {
+                    "code": "switch_4",
+                    "value": false
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_2",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_3",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_4",
+                    "value": 0
+                },
+                {
+                    "code": "relay_status",
+                    "value": "last"
+                },
+                {
+                    "code": "switch_backlight",
+                    "value": true
+                },
+                {
+                    "code": "switch_inching",
+                    "value": "AAAAAgAABAAABgAA"
+                },
+                {
+                    "code": "relay_status_1",
+                    "value": "last"
+                },
+                {
+                    "code": "relay_status_2",
+                    "value": "last"
+                },
+                {
+                    "code": "relay_status_3",
+                    "value": "last"
+                },
+                {
+                    "code": "relay_status_4",
+                    "value": "last"
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "a4c1380867a73b62"
+        },
+        {
+            "active_time": 1759406951,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1759406951,
+            "icon": "smart/program_category_icon/kg.png",
+            "id": "ebe13e88e425644a5aum0o",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "TYCMA-Z3",
+            "name": "WC1",
+            "node_id": "ec1bbdfffec5c88e",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "ind6ieen",
+            "product_name": "Smart Switch Pro_Zigbee 3 gang",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                },
+                {
+                    "code": "switch_2",
+                    "value": false
+                },
+                {
+                    "code": "switch_3",
+                    "value": false
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_2",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_3",
+                    "value": 0
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "ec1bbdfffec5c88e"
+        },
+        {
+            "active_time": 1759406945,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1759406945,
+            "icon": "smart/icon/ay1506265639773MvqMD/d1553fff8dc1eac9cdc3dca58a9168cd.png",
+            "id": "eb5fad66c5e100fed9aqi9",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "ZK3-03",
+            "name": "WC 2",
+            "node_id": "a4c138f0a3421ea6",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "hj6tlayw",
+            "product_name": "\u4e09\u8def\u5f00\u5173_Zigbee",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                },
+                {
+                    "code": "switch_2",
+                    "value": false
+                },
+                {
+                    "code": "switch_3",
+                    "value": false
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_2",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_3",
+                    "value": 0
+                },
+                {
+                    "code": "relay_status",
+                    "value": "last"
+                },
+                {
+                    "code": "switch_backlight",
+                    "value": true
+                },
+                {
+                    "code": "switch_inching",
+                    "value": "AAAAAgAABAAA"
+                },
+                {
+                    "code": "relay_status_1",
+                    "value": "last"
+                },
+                {
+                    "code": "relay_status_2",
+                    "value": "last"
+                },
+                {
+                    "code": "relay_status_3",
+                    "value": "last"
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "a4c138f0a3421ea6"
+        },
+        {
+            "active_time": 1759406941,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1759406941,
+            "icon": "smart/solution/43001/b8bb0466b861046d_cover.png",
+            "id": "eb56fe064d7586c4e2darc",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "TYCMA-Z1",
+            "name": "\u0110\u00e8n b\u1ebfp",
+            "node_id": "ec1bbdfffec3ce02",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "damhzhmn",
+            "product_name": "Smart Switch Pro_Zigbee 1 gang",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": true
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "ec1bbdfffec3ce02"
+        },
+        {
+            "active_time": 1759406925,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1759406925,
+            "icon": "smart/icon/ay1506265639773MvqMD/b4995d37bb19da74e4fac6f44c174c00.png",
+            "id": "ebc31dfdfcf1a421b5zcw3",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "ZK3-01",
+            "name": "\u0110\u00e8n ban c\u00f4ng",
+            "node_id": "a4c138cdf098e334",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "uyaol0rv",
+            "product_name": "\u4e00\u8def\u5f00\u5173_Zigbee",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                },
+                {
+                    "code": "relay_status",
+                    "value": "last"
+                },
+                {
+                    "code": "switch_backlight",
+                    "value": true
+                },
+                {
+                    "code": "switch_inching",
+                    "value": "AAAA"
+                },
+                {
+                    "code": "relay_status_1",
+                    "value": "last"
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "a4c138cdf098e334"
+        },
+        {
+            "active_time": 1759406875,
+            "biz_type": 18,
+            "category": "wg2",
+            "create_time": 1759406875,
+            "icon": "smart/icon/ay1559361599226d5lhc/6a8aedf352732eb5d227cbfdd1528a64.jpg",
+            "id": "eb1bd4d811e6a7b7c5mqci",
+            "ip": "222.252.90.40",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "DMD2CC",
+            "name": "DMD2CC",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "0jdzbgoxgfe5bjd9",
+            "product_name": "",
+            "sub": false,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766187798,
+            "uuid": "38a54369c6da3d54"
+        },
+        {
+            "active_time": 1690715868,
+            "biz_type": 18,
+            "category": "cz",
+            "create_time": 1584033605,
+            "icon": "smart/icon/1548404412imrhib2pz8g_0.png",
+            "id": "803008475002914acbbb",
+            "ip": "222.252.92.69",
+            "lat": "21.05",
+            "local_key": "(M#oC2M^0-e4g3#a",
+            "lon": "105.78",
+            "model": "WF-WS01",
+            "name": "\u0110\u00e8n Logia",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "kZbvCqK7zvFiCGl1",
+            "product_name": "One gang switch",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                }
+            ],
+            "sub": false,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766178164,
+            "uuid": "803008475002914acbbb"
+        },
+        {
+            "active_time": 1718630616,
+            "biz_type": 18,
+            "category": "kg",
+            "create_time": 1578204469,
+            "icon": "smart/icon/ay1506265639773MvqMD/b44306049766c8e7c0476a7eadd862b6.jpg",
+            "id": "50501333cc50e3e6ee69",
+            "ip": "113.190.198.216",
+            "lat": "21.05",
+            "local_key": "9u}0b/#OLh~@fGBQ",
+            "lon": "105.78",
+            "model": "WIFI-US-SK3-04",
+            "name": "\u0110\u00e8n ph\u00f2ng \u0103n",
+            "online": true,
+            "owner_id": "13022412",
+            "product_id": "c73jnsmi9avwvbo0",
+            "product_name": "4-Gang Switch_WiFi",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                },
+                {
+                    "code": "switch_2",
+                    "value": false
+                },
+                {
+                    "code": "switch_3",
+                    "value": false
+                },
+                {
+                    "code": "switch_4",
+                    "value": false
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_2",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_3",
+                    "value": 0
+                },
+                {
+                    "code": "countdown_4",
+                    "value": 0
+                }
+            ],
+            "sub": false,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1766178163,
+            "uuid": "50501333cc50e3e6ee69"
+        },
+        {
+            "active_time": 1765372335,
+            "biz_type": 18,
+            "category": "mcs",
+            "create_time": 1765372335,
+            "icon": "smart/icon/ay1534490862266NApJD/12210fb164308bd08080a26338711fb2.png",
+            "id": "ebe4b5d63d0e8ac064dthi",
+            "ip": "",
+            "lat": "21.05",
+            "local_key": "4.|9.bN+po@lbpE2",
+            "lon": "105.78",
+            "model": "ZXZ5DS-02",
+            "name": "Door Sensor",
+            "node_id": "5c0272fffe8f75ec",
+            "online": false,
+            "owner_id": "13022412",
+            "product_id": "f1hmoyj4",
+            "product_name": "Door Sensor",
+            "status": [
+                {
+                    "code": "doorcontact_state",
+                    "value": true
+                },
+                {
+                    "code": "battery_percentage",
+                    "value": 0
+                }
+            ],
+            "sub": true,
+            "time_zone": "+07:00",
+            "uid": "az15782040379122GPHQ",
+            "update_time": 1765885441,
+            "uuid": "5c0272fffe8f75ec"
+        }
+    ],
+    "success": true,
+    "t": 1766230188417,
+    "tid": "310c8e5cdd9711f09fb986ce29b0cadc",
+    "file": {
+        "name": "tuya-raw.json",
+        "description": "Full raw list of Tuya devices.",
+        "account": "75aqkcu4hcdyjeun943e",
+        "date": "2025-12-20T18:29:51.839176",
+        "tinytuya": "1.17.4"
+    }
+}
