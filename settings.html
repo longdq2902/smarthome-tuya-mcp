@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài đặt - Tuya Smart Home</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #ebedef;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: #34495e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #2c3e50;
+        }
+
+        .btn-green {
+            background: #2ecc71;
+        }
+
+        .btn-green:hover {
+            background: #27ae60;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .section h3 {
+            margin-top: 0;
+            color: #444;
+            font-size: 1.1em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .note {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/" class="back-link">← Quay lại Dashboard</a>
+
+    <div class="container">
+        <h2>⚙️ Cài đặt Hệ thống</h2>
+        <div id="message" style="display:none; padding:10px; margin-bottom:20px; border-radius:6px;"></div>
+
+        <form id="settingsForm">
+            <!-- EMAIL CONFIG -->
+            <div class="section">
+                <h3>📧 Cấu hình Email</h3>
+                <div class="form-group" style="display:flex; gap:10px;">
+                    <div style="flex:3;">
+                        <label>Máy chủ IMAP (Host)</label>
+                        <input type="text" name="imap_host" placeholder="mail.vnpt-technology.vn"
+                            value="imap.gmail.com">
+                    </div>
+                    <div style="flex:1;">
+                        <label>Cổng (Port)</label>
+                        <input type="number" name="imap_port" value="993">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tài khoản Email</label>
+                    <input type="text" name="email_account" placeholder="example@domain.vn">
+                </div>
+                <div class="form-group">
+                    <label>Mật khẩu ứng dụng (App Password)</label>
+                    <input type="password" name="email_password" placeholder="xxxx xxxx xxxx xxxx">
+                    <div class="note">Lưu ý: Sử dụng App Password nếu dùng Gmail 2FA.</div>
+                </div>
+                <div class="form-group">
+                    <label>Email người gửi (Lọc thư)</label>
+                    <input type="text" name="email_sender" placeholder="hoadon@dienluc.vn">
+                </div>
+                <div class="form-group">
+                    <label>Từ khóa tiêu đề hóa đơn</label>
+                    <input type="text" name="bill_subject_keyword" value="Thông báo phí">
+                </div>
+                <div class="form-group">
+                    <label>Lịch kiểm tra (Giờ:Phút, cách nhau dấu phẩy)</label>
+                    <input type="text" name="check_schedule" value="12:00, 18:00">
+                </div>
+                <div class="form-group">
+                    <label>Quét email trong vòng (ngày) - Nhập 1 để chỉ quét hôm nay</label>
+                    <input type="number" name="email_scan_days" value="30">
+                </div>
+            </div>
+
+            <!-- SPEAKER CONFIG -->
+            <div class="section">
+                <h3>📢 Cấu hình Loa & Thông báo</h3>
+                <div class="form-group">
+                    <label>Giờ đọc thông báo hàng ngày</label>
+                    <input type="text" name="announce_schedule" value="20:00">
+                </div>
+                <div class="form-group">
+                    <label>Âm lượng (0-10)</label>
+                    <input type="number" name="speaker_volume" value="4">
+                </div>
+            </div>
+
+            <!-- TELEGRAM CONFIG -->
+            <div class="section">
+                <h3>✈️ Cấu hình Telegram</h3>
+                <div class="form-group">
+                    <label>Bot Token</label>
+                    <input type="text" name="telegram_token" placeholder="123456:ABC-DEF...">
+                    <div class="note">Tạo bot qua @BotFather</div>
+                </div>
+                <div class="form-group">
+                    <label>Chat ID</label>
+                    <input type="text" name="telegram_chat_id" placeholder="-100xxxxxx">
+                    <div class="note">ID người dùng hoặc Group ID. Dùng @userinfobot để lấy ID.</div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="telegram_enabled" value="1"> Kích hoạt gửi tin nhắn Telegram
+                    </label>
+                </div>
+                <!-- LLM PARSING CONFIG -->
+                <div class="section">
+                    <h3>🧠 Cấu hình Đọc Hóa Đơn</h3>
+                    <div class="form-group">
+                        <label>Phương thức xử lý (Parser)</label>
+                        <select name="parser_mode"
+                            style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                            <option value="regex">Cơ bản (Regex cố định)</option>
+                            <option value="llm">Nâng cao (DeepSeek AI)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>DeepSeek API Key</label>
+                        <input type="password" name="llm_api_key" placeholder="sk-...">
+                        <div class="note">Key được lưu bảo mật. Đăng ký tại platform.deepseek.com</div>
+                    </div>
+                    <!-- 
+                <div class="form-group">
+                    <label>Model Name (Mặc định: deepseek-chat)</label>
+                    <input type="text" name="llm_model" placeholder="deepseek-chat">
+                </div>
+                 -->
+                </div>
+
+                <button type="submit" class="btn btn-green">Lưu Cấu Hình</button>
+        </form>
+    </div>
+
+    <script>
+        async function loadSettings() {
+            try {
+                const res = await fetch('/api/settings');
+                const data = await res.json();
+
+                const form = document.getElementById('settingsForm');
+                for (const [key, val] of Object.entries(data)) {
+                    const input = form.elements[key];
+                    if (input) {
+                        if (input.type === 'checkbox') {
+                            input.checked = val === 'true' || val === '1';
+                        } else {
+                            input.value = val;
+                        }
+                    }
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {};
+
+            // Xử lý checkbox thủ công vì FormData không gửi nếu unchecked
+            data['telegram_enabled'] = e.target.elements['telegram_enabled'].checked ? '1' : '0';
+
+            formData.forEach((value, key) => {
+                if (key !== 'telegram_enabled') data[key] = value;
+            });
+
+            try {
+                const res = await fetch('/api/settings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+
+                const msg = document.getElementById('message');
+                msg.style.display = 'block';
+                if (result.success) {
+                    msg.style.background = '#d4edda'; msg.style.color = '#155724';
+                    msg.innerText = "Đã lưu thành công!";
+                } else {
+                    msg.style.background = '#f8d7da'; msg.style.color = '#721c24';
+                    msg.innerText = "Lỗi: " + result.message;
+                }
+                setTimeout(() => msg.style.display = 'none', 3000);
+            } catch (e) { alert("Lỗi kết nối"); }
+        });
+
+        loadSettings();
+    </script>
+</body>
+
+</html>

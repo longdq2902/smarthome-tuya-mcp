@@ -3,26 +3,24 @@ import tinytuya
 import json
 import os
 import logging
+import db_manager # <--- MỚI
 
 # Setup Logger riêng
 logger = logging.getLogger('tuya_module')
-DEVICES_FILE = 'devices.json'
 
 # Global variables
 tuya_cache = {} 
 device_lookup = {} 
 
 def load_devices():
-    """Nạp và xử lý danh sách thiết bị"""
+    """Nạp và xử lý danh sách thiết bị từ SQLite"""
     global tuya_cache, device_lookup
-    if not os.path.exists(DEVICES_FILE):
-        return
-
+    
     try:
-        with open(DEVICES_FILE, 'r', encoding='utf-8') as f:
-            raw_devices = json.load(f)
+        # 1. Lấy dữ liệu từ DB
+        raw_devices = db_manager.get_all_devices()
             
-        # Tìm Gateway
+        # 2. Tìm Gateway
         gateways = {}
         for d in raw_devices:
             if d.get('ip') and (not d.get('parent') or 'wg' in d.get('category', '')):
@@ -39,6 +37,8 @@ def load_devices():
             # Xử lý kết nối (Zigbee/WiFi)
             processed_dev = dev.copy()
             parent_id = dev.get('parent')
+            
+            # Logic thừa kế IP từ Gateway
             if parent_id and parent_id in gateways:
                 gateway = gateways[parent_id]
                 processed_dev['ip'] = gateway.get('ip')
@@ -63,7 +63,7 @@ def load_devices():
 
         tuya_cache = temp_cache
         device_lookup = temp_lookup
-        logger.info(f"Loaded {len(tuya_cache)} devices.")
+        logger.info(f"Loaded {len(tuya_cache)} devices from DB.")
 
     except Exception as e:
         logger.error(f"Error loading devices: {e}")
@@ -121,17 +121,23 @@ def control_device(device_name: str, command: str) -> str:
     d, err = get_tuya_obj(dev_config)
     if err: return f"Lỗi kết nối: {err}"
 
-    is_on = (command.lower() == 'on')
+    cmd = command.lower().strip()
+    is_on = (cmd == 'on' or cmd == 'bật' or cmd == 'true' or cmd == '1' or 'bật' in cmd)
     dp_id = target_info['dp']
     real_name = target_info['name']
 
     try:
         if dp_id:
             d.set_value(str(dp_id), is_on)
+            # Update DB (Optional nhưng nên làm để đồng bộ với Web)
+            db_manager.update_device_state(target_info['id'], {str(dp_id): is_on})
             return f"Đã {command} {real_name}."
         else:
             if is_on: d.turn_on()
             else: d.turn_off()
+            # Update DB
+            # Note: Thiết bị đơn thường trả về dps '1' hoặc '20'
+            # Ở đây ta set tạm giả định, thực tế nên chờ polling cập nhật
             return f"Đã {command} toàn bộ {real_name}."
     except Exception as e: return f"Thất bại: {e}"
 
@@ -149,6 +155,8 @@ def check_status(device_name: str) -> str:
     if not target_info: return "Không tìm thấy thiết bị."
 
     dev_config = tuya_cache.get(target_info['id'])
+    # Ưu tiên lấy từ Cache DB nếu có (để phản hồi nhanh và tránh connect nhiều)
+    # Tuy nhiên tool này yêu cầu check thực tế nên ta vẫn kết nối
     d, err = get_tuya_obj(dev_config)
     if err: return "Mất kết nối."
 
@@ -156,6 +164,9 @@ def check_status(device_name: str) -> str:
         data = d.status()
         if not data or 'dps' not in data: return "Thiết bị Offline."
         dps = data['dps']
+        
+        # Update ngược lại DB
+        db_manager.update_device_state(target_info['id'], dps)
         
         if target_info['dp']:
             st = "BẬT" if dps.get(str(target_info['dp'])) else "TẮT"

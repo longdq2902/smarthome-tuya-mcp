@@ -3,10 +3,19 @@ from mcp.server.fastmcp import FastMCP
 import logging
 import sys
 import threading
-from datetime import datetime, timedelta # <--- MỚI: Cần cái này để tính giờ
+from datetime import datetime, timedelta
+import io
+
+# FORCE UTF-8 ENCODING FOR WINDOWS
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', stream=sys.stderr)
 
 # 1. IMPORT CÁC MODULE CON
 import tuya_mcp
+import db_manager
+import email_mcp
 # import bank_mcp
 
 # 2. IMPORT WEB SERVER
@@ -15,16 +24,16 @@ try:
 except ImportError as e:
     sys.stderr.write(f"Loi import main.py: {e}\n")
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', stream=sys.stderr)
-
 mcp = FastMCP("XiaoZhi_Smart_Home")
+
+# GLOBAL SERVICES
+email_service = email_mcp.EmailMCP()
 
 # --- HÀM KHỞI CHẠY WEB SERVER ---
 def start_flask():
     sys.stderr.write("--> Starting Flask Web Server on port 5000...\n")
     web_server.app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
 
-# --- [MỚI] HÀM TOOL HẸN GIỜ CHO AI ---
 # --- [MỚI] HÀM TOOL HẸN GIỜ CHO AI ---
 def set_timer_tool(device_name: str, minutes: int) -> str:
     """
@@ -94,17 +103,46 @@ def set_timer_tool(device_name: str, minutes: int) -> str:
     action_vn = "TẮT" if action == 'off' else "BẬT"
     return f"Đã đặt lịch: {target_info['name']} sẽ {action_vn} sau {minutes} phút nữa."
 
+# --- TOOL TRA CỨU THÔNG BÁO ---
+def check_notifications(query: str) -> str:
+    """Tra cứu các thông báo từ Ban Quản Lý hoặc Hóa đơn."""
+    results = db_manager.search_emails(query)
+    if not results: return "Không tìm thấy thông báo nào liên quan."
+    
+    msg = f"Tìm thấy {len(results)} thông báo:\n"
+    for r in results:
+        msg += f"- [{r['received_at']}] {r['subject']}\n"
+        if r['summary']: msg += f"  Nội dung: {r['summary'][:100]}...\n"
+    return msg
+
+def get_latest_bill() -> str:
+    """Lấy thông tin hóa đơn mới nhất."""
+    bills = db_manager.get_emails(limit=1, content_type='BILL')
+    if not bills: return "Chưa có hóa đơn nào được lưu."
+    
+    b = bills[0]
+    meta = b.get('metadata', {})
+    amount = meta.get('amount', 'N/A')
+    month = meta.get('month', 'N/A')
+    
+    return f"Hóa đơn mới nhất ({b['received_at']}):\nTiêu đề: {b['subject']}\nTháng: {month}\nSố tiền: {amount}"
+
 # 3. ĐĂNG KÝ CÁC TOOLS
 mcp.add_tool(tuya_mcp.list_devices, name="Danh_sach_thiet_bi", description="Liệt kê tên các thiết bị.")
 mcp.add_tool(tuya_mcp.control_device, name="Dieu_khien_thiet_bi", description="Bật hoặc tắt ngay lập tức.")
 mcp.add_tool(tuya_mcp.check_status, name="Kiem_tra_trang_thai", description="Kiểm tra xem thiết bị đang Bật hay Tắt.")
-
-# Đăng ký tool mới
 mcp.add_tool(set_timer_tool, name="Hen_gio_thiet_bi", description="Hẹn giờ bật hoặc tắt thiết bị sau một khoảng thời gian (phút).")
+
+# Tools Email
+mcp.add_tool(check_notifications, name="Kiem_tra_thong_bao", description="Tra cứu thông báo từ BQL theo từ khóa.")
+mcp.add_tool(get_latest_bill, name="Kiem_tra_hoa_don", description="Xem thông tin hóa đơn điện nước mới nhất.")
 
 if __name__ == "__main__":
     flask_thread = threading.Thread(target=start_flask, daemon=True)
     flask_thread.start()
+
+    # Start Email Service
+    email_service.start()
 
     sys.stderr.write("Master MCP is ready! Waiting for connection...\n")
     mcp.run(transport="stdio")

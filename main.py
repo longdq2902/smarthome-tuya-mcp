@@ -4,19 +4,23 @@ import json
 import time
 import os
 import threading
-from datetime import datetime, timedelta # <--- THÊM DÒNG NÀY
+import sys
+import io
+
+# FORCE UTF-8 ENCODING FOR WINDOWS
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+from datetime import datetime, timedelta
+import db_manager # <--- MỚI: Module quản lý DB
 
 app = Flask(__name__)
 
-DEVICES_FILE = 'devices.json'
-SNAPSHOT_FILE = 'snapshot.json'
-
-# Cache lưu trạng thái thiết bị
+# Cache lưu trạng thái thiết bị (Vẫn giữ Cache trên RAM để phản hồi nhanh)
 tuya_cache = {}
-devices_config_list = [] 
 active_timers = {}
 
-# Lock để tránh xung đột khi nhiều luồng cùng ghi dữ liệu
+# Lock để tránh xung đột
 data_lock = threading.Lock()
 
 def safe_float_version(val):
@@ -43,28 +47,6 @@ def get_default_info(did):
         "last_update": 0
     }
 
-def load_snapshot():
-    global tuya_cache
-    if not os.path.exists(SNAPSHOT_FILE): return
-    try:
-        with open(SNAPSHOT_FILE, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        dev_list = data.get('devices', []) if isinstance(data, dict) else data
-        for s in dev_list:
-            did = s.get('id')
-            if not did: continue
-            if did not in tuya_cache: 
-                tuya_cache[did] = get_default_info(did)
-            
-            dps = s.get('dps', {})
-            if 'dps' in dps: dps = dps['dps']
-            if dps: tuya_cache[did]['dps'].update(dps)
-            
-            if 'ver' in s:
-                tuya_cache[did]['snapshot_ver'] = safe_float_version(s['ver'])
-    except Exception as e:
-        print(f"⚠️ Lỗi đọc snapshot: {e}")
-
 def determine_device_type(dev_config):
     cat = dev_config.get('category', '').lower()
     mapping = str(dev_config.get('mapping', {})).lower()
@@ -82,10 +64,8 @@ def init_device(dev, parent=None):
     dev_key = dev.get('key')
     
     config_ver = safe_float_version(dev.get('version'))
-    snapshot_ver = 0.0
-    if dev_id in tuya_cache:
-        snapshot_ver = tuya_cache[dev_id].get('snapshot_ver', 0.0)
     
+    # Logic xác định version và IP từ cha (nếu có)
     if parent:
         ip = parent.get('ip')
         key = parent.get('key')
@@ -94,32 +74,35 @@ def init_device(dev, parent=None):
     else:
         ip = dev.get('ip')
         key = dev_key
-        if config_ver > 0: ver = config_ver
-        elif snapshot_ver > 0: ver = snapshot_ver
-        else: ver = 3.3 
+        ver = config_ver if config_ver > 0 else 3.3
 
     if dev_id not in tuya_cache:
         tuya_cache[dev_id] = get_default_info(dev_id)
 
+    # Cập nhật thông tin static từ DB vào Cache
     tuya_cache[dev_id].update({
         "name": dev.get('name', 'Unknown'),
         "type": determine_device_type(dev),
         "category": dev.get('category', ''),
         "mapping": dev.get('mapping', {}),
         "ip": ip if ip and ip != "0.0.0.0" else None,
-        "real_ip": dev.get('ip', ''),
+        "real_ip": dev.get('ip', ''), # IP lưu trong config chính chủ
         "version": ver,
         "via": parent.get('name') if parent else None,
         "is_sub": True if parent else False,
         "missing_ip": False
     })
 
+    # Restore trạng thái cũ từ DB (nếu có) để UI không bị trống lúc mới khởi động
+    if 'dps' in dev and dev['dps']:
+        tuya_cache[dev_id]['dps'].update(dev['dps'])
+
     if not ip or ip == "0.0.0.0":
         tuya_cache[dev_id]["missing_ip"] = True
         return
 
     try:
-        # Tái sử dụng object cũ nếu có để tránh tạo socket liên tục
+        # Tái sử dụng object connection
         if not tuya_cache[dev_id].get("obj"):
             if tuya_cache[dev_id]['type'] == 'light':
                 d = tinytuya.BulbDevice(dev_id, ip, key)
@@ -127,14 +110,14 @@ def init_device(dev, parent=None):
                 d = tinytuya.OutletDevice(dev_id, ip, key)
             
             d.set_version(ver)
-            d.set_socketPersistent(True) # Giữ kết nối để poll nhanh hơn
+            d.set_socketPersistent(True) 
             d.set_socketRetryLimit(1)
             d.set_socketTimeout(2)
             if parent: d.cid = dev.get('node_id', dev_id)
             
             tuya_cache[dev_id]["obj"] = d
         else:
-            # Update lại thông tin nếu config đổi
+            # Update lại thông tin kết nối nếu config đổi
             d = tuya_cache[dev_id]["obj"]
             d.set_version(ver)
             d.address = ip
@@ -144,33 +127,35 @@ def init_device(dev, parent=None):
     except: pass
 
 def load_system():
-    global devices_config_list
-    if os.path.exists(DEVICES_FILE):
-        with open(DEVICES_FILE, 'r', encoding='utf-8') as f:
-            devices_config_list = json.load(f)
+    print("--> Đang nạp danh sách thiết bị từ SQLite...")
     
-    load_snapshot() 
+    # 1. Lấy tất cả thiết bị từ DB
+    all_devices = db_manager.get_all_devices()
     
-    gateways = {d['id']: d for d in devices_config_list if 'wg' in d.get('category', '') or (d.get('ip') and not d.get('parent'))}
+    # 2. Lọc ra Gateway để xử lý thiết bị con
+    gateways = {d['id']: d for d in all_devices if 'wg' in d.get('category', '') or (d.get('ip') and not d.get('parent'))}
 
-    for dev in devices_config_list:
+    # 3. Khởi tạo từng thiết bị
+    for dev in all_devices:
         parent = None
         pid = dev.get('parent')
         if pid and pid in gateways: parent = gateways[pid]
         init_device(dev, parent)
-    print(f"--> Đã nạp {len(tuya_cache)} thiết bị.")
+        
+    print(f"--> Đã nạp {len(tuya_cache)} thiết bị từ DB.")
 
 # --- LUỒNG CẬP NHẬT TRẠNG THÁI (POLLING THREAD) ---
 def background_polling():
+    # Load lần đầu
+    load_system()
+    
     while True:
-        
         now = datetime.now()
-        # Duyệt qua danh sách timer (Key bây giờ sẽ có dạng "deviceid_dpid")
+        
+        # 1. XỬ LÝ HẸN GIỜ (Giữ nguyên logic cũ)
         for key, timer in list(active_timers.items()):
             if now >= timer['end_time']:
                 try:
-                    # Tách key để lấy ID thiết bị và ID nút
-                    # Key định dạng: "devID_dpID" (VD: "bf82xx..._1")
                     parts = key.rsplit('_', 1) 
                     did = parts[0]
                     dp_id = parts[1] if len(parts) > 1 else None
@@ -182,28 +167,26 @@ def background_polling():
                         dev_obj = info['obj']
                         is_on = (timer['action'] == 'on')
                         
-                        # LOGIC ĐIỀU KHIỂN CHÍNH XÁC TỪNG NÚT
                         if dp_id and dp_id != 'None':
                             dev_obj.set_value(str(dp_id), is_on)
                             with data_lock:
                                 info['dps'][str(dp_id)] = is_on
+                                # Cập nhật DB khi Timer chạy
+                                db_manager.update_device_state(did, {str(dp_id): is_on}) 
                         else:
-                            # Fallback cho thiết bị đơn (không có DP cụ thể)
                             if is_on: dev_obj.turn_on()
                             else: dev_obj.turn_off()
-                            # Cập nhật tạm cache (để UI phản hồi ngay)
                             with data_lock:
                                 if '1' in info['dps']: info['dps']['1'] = is_on
                                 if '20' in info['dps']: info['dps']['20'] = is_on
+                                # Cập nhật DB
+                                db_manager.update_device_state(did, info['dps'])
                     
-                    # Xóa timer sau khi xong
                     del active_timers[key]
                 except Exception as e:
                     print(f"Lỗi Timer: {e}")
-        # -------------------------
-
-        # Lặp qua tất cả thiết bị để lấy trạng thái mới nhất
-        # Copy keys để tránh lỗi runtime khi dict thay đổi size
+        
+        # 2. QUÉT TRẠNG THÁI THIẾT BỊ
         device_ids = list(tuya_cache.keys())
         
         for dev_id in device_ids:
@@ -213,31 +196,52 @@ def background_polling():
             
             try:
                 dev = info['obj']
-                # Lấy status
                 data = dev.status()
                 
                 if data and 'dps' in data:
+                    is_changed = False
                     with data_lock:
-                        info['dps'].update(data['dps'])
+                        # Kiểm tra xem có gì mới không
+                        old_dps = info.get('dps', {})
+                        new_dps = data['dps']
+                        
+                        # Chỉ update DB nếu có thay đổi giá trị hoặc thiết bị vừa online lại
+                        if info.get('online') == False: 
+                            is_changed = True
+                        else:
+                            # So sánh đơn giản
+                            for k, v in new_dps.items():
+                                if str(k) not in old_dps or old_dps[str(k)] != v:
+                                    is_changed = True
+                                    break
+                        
+                        info['dps'].update(new_dps)
                         info['online'] = True
                         info['last_update'] = time.time()
+                    
+                    if is_changed:
+                        # Ghi trạng thái mới xuống DB
+                        # Chạy trong background thread nên không lo block UI chính
+                        db_manager.update_device_state(dev_id, new_dps, is_online=True)
+                        
                 elif 'Error' in str(data):
-                    info['online'] = False
+                    if info.get('online'):
+                        info['online'] = False
+                        db_manager.update_device_state(dev_id, {}, is_online=False)
             except:
                 info['online'] = False
-            
-            # Nghỉ nhẹ giữa các thiết bị để không làm nghẽn mạng
+                
             time.sleep(0.1)
         
-        # Đợi 5 giây trước khi quét lại vòng mới
         time.sleep(5)
 
-# Khởi chạy hệ thống
-load_system()
-
-# Bắt đầu luồng chạy ngầm
-poll_thread = threading.Thread(target=background_polling, daemon=True)
-poll_thread.start()
+# Bắt đầu luồng chạy ngầm ngay khi import (hoặc khi chạy main)
+# Lưu ý: Flask khi chạy debug mode có thể load file 2 lần -> tạo 2 thread. 
+# Cần kiểm tra biến môi trường hoặc dùng lock file nếu cần thiết. 
+# Ở đây đơn giản hóa.
+if not os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    poll_thread = threading.Thread(target=background_polling, daemon=True)
+    poll_thread.start()
 
 @app.route('/')
 def index():
@@ -246,33 +250,23 @@ def index():
 @app.route('/api/devices', methods=['GET'])
 def get_devices():
     response_list = []
-    # Trả về cache ngay lập tức (Cache luôn được update bởi luồng ngầm)
     with data_lock:
         for dev_id, info in tuya_cache.items():
             
-            # Fix lỗi tên mapping (như code trước)
             mapping = info.get('mapping', {})
-            display_dps = {}
-            
-            if mapping:
-                for dp, val in mapping.items():
-                    pass # Chỉ để đảm bảo code mapping tồn tại
             timers_info = {}
             
-            # Quét qua tất cả active_timers xem có cái nào thuộc về device này không
             for key, val in active_timers.items():
                 if key.startswith(dev_id):
-                    # Tách lại dp_id từ key
                     parts = key.rsplit('_', 1)
                     t_dp = parts[1] if len(parts) > 1 else 'main'
-                    
                     remaining = val['end_time'] - datetime.now()
                     total_seconds = int(remaining.total_seconds())
                     if total_seconds > 0:
                         mins = total_seconds // 60
-                        secs = total_seconds % 60
                         ac = "BẬT" if val['action'] == 'on' else "TẮT"
                         timers_info[t_dp] = f"{ac} sau {mins}p"
+                        
             response_list.append({
                 "id": dev_id,
                 "name": info.get('name', f'Device {dev_id}'),
@@ -290,19 +284,14 @@ def get_devices():
             })
     return jsonify(response_list)
 
-# --- SỬA API NÀY TRONG main.py ---
 @app.route('/api/set_timer', methods=['POST'])
 def set_timer():
     data = request.json
     dev_id = data.get('id')
-    # Nhận thêm dp_id (nếu là thiết bị đơn thì dp_id có thể là null hoặc '1')
     dp_id = str(data.get('dp_id', '')) 
     minutes = int(data.get('minutes', 0))
-    
-    # Tạo Key duy nhất cho từng nút: "deviceID_dpID"
     timer_key = f"{dev_id}_{dp_id}"
 
-    # Hủy Timer
     if minutes <= 0:
         if timer_key in active_timers:
             del active_timers[timer_key]
@@ -311,20 +300,17 @@ def set_timer():
     info = tuya_cache.get(dev_id)
     if not info: return jsonify({"success": False}), 404
     
-    # Lấy trạng thái hiện tại CỦA ĐÚNG NÚT ĐÓ
     dps = info.get('dps', {})
     is_currently_on = False
     
     if dp_id and dp_id in dps:
         is_currently_on = dps[dp_id]
     else:
-        # Fallback cho thiết bị đơn
         is_currently_on = dps.get('1') or dps.get('20') or False
     
     action = 'off' if is_currently_on else 'on'
     end_time = datetime.now() + timedelta(minutes=minutes)
     
-    # Lưu timer với key mới
     active_timers[timer_key] = {
         'end_time': end_time,
         'action': action
@@ -332,7 +318,6 @@ def set_timer():
     
     action_vn = "TẮT" if action == 'off' else "BẬT"
     target_name = info['name']
-    # Nếu có tên nút con, hiển thị cho rõ
     if dp_id and 'mapping' in info and dp_id in info['mapping']:
         target_name += " (" + info['mapping'][dp_id].get('name', dp_id) + ")"
 
@@ -342,47 +327,50 @@ def set_timer():
 def update_config():
     data = request.json
     dev_id = data.get('id')
-    new_ip = data.get('ip')
-    new_ver = data.get('version')
-    new_dev_name = data.get('device_name')
     
-    # Rename DP (Nút hoặc Cảm biến)
-    dp_id_to_rename = data.get('dp_id')
-    new_dp_name = data.get('name')
-
-    if not dev_id: return jsonify({"success": False}), 400
-
-    changed = False
-    with data_lock:
-        for dev in devices_config_list:
-            if dev['id'] == dev_id:
-                if new_ip is not None: 
-                    dev['ip'] = new_ip
-                    changed = True
-                if new_ver is not None:
-                    dev['version'] = str(new_ver)
-                    changed = True
-                if new_dev_name is not None:
-                    dev['name'] = new_dev_name.strip()
-                    changed = True
+    # Chỉ định các trường cho phép update
+    allowed_fields = ['ip', 'version', 'name'] # name ở đây là device_name
+    
+    update_data = {'id': dev_id}
+    has_change = False
+    
+    if 'device_name' in data:
+        update_data['name'] = data['device_name']
+        has_change = True
+        
+    if 'ip' in data:
+        update_data['ip'] = data['ip']
+        has_change = True
+        
+    if 'version' in data:
+        update_data['version'] = data['version']
+        has_change = True
+        
+    # Xử lý đổi tên DP
+    dp_id = data.get('dp_id')
+    dp_name = data.get('name')
+    
+    if dp_id and dp_name:
+        # Cần get mapping cũ ra để update
+        with data_lock:
+            info = tuya_cache.get(dev_id)
+            if info:
+                current_mapping = info.get('mapping', {})
+                str_dp = str(dp_id)
+                if str_dp not in current_mapping:
+                    current_mapping[str_dp] = {"code": f"DP {str_dp}", "type": "String"}
                 
-                # Logic đổi tên DP (Dùng chung cho cả Switch và Sensor)
-                if dp_id_to_rename is not None and new_dp_name is not None:
-                    if 'mapping' not in dev: dev['mapping'] = {}
-                    str_dp = str(dp_id_to_rename)
-                    if str_dp not in dev['mapping']:
-                        # Nếu chưa có mapping, tạo mới mặc định
-                        dev['mapping'][str_dp] = {"code": f"DP {str_dp}", "type": "String"}
-                    
-                    dev['mapping'][str_dp]['name'] = new_dp_name 
-                    changed = True
-                break
-            
-    if changed:
-        with open(DEVICES_FILE, 'w', encoding='utf-8') as f:
-            json.dump(devices_config_list, f, indent=4, ensure_ascii=False)
-        load_system() 
-        return jsonify({"success": True, "message": "Đã lưu cấu hình."})
+                current_mapping[str_dp]['name'] = dp_name
+                update_data['mapping'] = current_mapping
+                has_change = True
+
+    if has_change:
+        # Ghi vào DB
+        db_manager.upsert_device(update_data)
+        
+        # Load lại để cập nhật Cache
+        load_system()
+        return jsonify({"success": True, "message": "Đã lưu vào DB."})
     
     return jsonify({"success": False, "message": "Không có gì thay đổi."})
 
@@ -404,13 +392,39 @@ def control_device():
             if dps_id:
                 dev_obj.set_value(str(dps_id), is_on)
                 with data_lock: info['dps'][str(dps_id)] = is_on 
+                # Cập nhật DB ngay sau khi điều khiển thành công
+                db_manager.update_device_state(dev_id, {str(dps_id): is_on})
             else:
                 if is_on: dev_obj.turn_on()
                 else: dev_obj.turn_off()
                 with data_lock:
                     if '1' in info['dps']: info['dps']['1'] = is_on
                     if '20' in info['dps']: info['dps']['20'] = is_on
+                    # Cập nhật DB
+                    db_manager.update_device_state(dev_id, info['dps'])
 
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+@app.route('/settings')
+def settings_page():
+    return send_from_directory('.', 'settings.html')
+
+@app.route('/api/settings', methods=['GET'])
+def get_settings():
+    try:
+        data = db_manager.get_all_settings()
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/settings', methods=['POST'])
+def save_settings():
+    try:
+        data = request.json
+        for k, v in data.items():
+            db_manager.set_setting(k, v)
         return jsonify({"success": True})
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
