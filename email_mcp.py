@@ -212,7 +212,17 @@ class EmailMCP:
                         # SEND TELEGRAM
                         if is_bill:
                             logger.info("   -> [Action] Sending Telegram notification...")
-                            self.send_telegram_notification(subject, metadata)
+                            # Determine PDF data if available
+                            pdf_bytes = None
+                            pdf_name = "bill.pdf"
+                            
+                            # Search inside parts again? (Inefficient)
+                            # Better: Store it when found
+                            if 'file_data' in locals():
+                                pdf_bytes = file_data
+                                if 'filename' in locals() and filename: pdf_name = filename
+
+                            self.send_telegram_notification(subject, metadata, pdf_bytes, pdf_name)
                         else:
                             # Optional: Notify for other important notices
                             logger.info("   -> [Action] Skipped Telegram (Not a bill)")
@@ -334,7 +344,7 @@ class EmailMCP:
              return "{:,.0f}".format(int(amount)).replace(",", ".")
         except: return str(amount)
 
-    def send_telegram_notification(self, subject, metadata):
+    def send_telegram_notification(self, subject, metadata, pdf_data=None, pdf_filename="bill.pdf"):
         settings = db_manager.get_all_settings()
         if settings.get('telegram_enabled') != '1': return
         
@@ -355,8 +365,20 @@ class EmailMCP:
         msg += f"(Email: {subject})"
 
         try:
-            url = f"https://api.telegram.org/bot{token}/sendMessage"
-            requests.post(url, json={"chat_id": chat_id, "text": msg, "parse_mode": "HTML"}, timeout=5)
+            # 1. Send Text Message
+            url_msg = f"https://api.telegram.org/bot{token}/sendMessage"
+            requests.post(url_msg, json={"chat_id": chat_id, "text": msg, "parse_mode": "HTML"}, timeout=5)
+
+            # 2. Send PDF Document (if available AND enabled)
+            # Default to False if not set, consistent with unchecked checkbox
+            send_pdf = settings.get('telegram_send_pdf') == '1'
+            
+            if pdf_data and send_pdf:
+                url_doc = f"https://api.telegram.org/bot{token}/sendDocument"
+                files = {'document': (pdf_filename, pdf_data, 'application/pdf')}
+                requests.post(url_doc, data={"chat_id": chat_id}, files=files, timeout=30)
+                logger.info("   -> [Action] Sent PDF to Telegram.")
+
         except Exception as e:
             logger.error(f"Telegram Error: {e}")
 
